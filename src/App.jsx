@@ -14,6 +14,7 @@ import MyTasks from './pages/User/MyTasks';
 import PrivateRoute from './routes/PrivateRoute';
 import UserProvider from './context/userContext';
 import HomePage from './pages/HomePage';
+import { Toaster } from 'react-hot-toast';
 
 const App = () =>{
   return (
@@ -45,10 +46,19 @@ const App = () =>{
           </Routes>
         </Router>
     </div>
+
+    <Toaster
+      toastOptions={{
+        className:"",
+        style: {
+          fontSize: "13px",
+        },
+      }}
+      />
     </UserProvider>
   );
 };
 
-export default App
+export default App;
 
 
