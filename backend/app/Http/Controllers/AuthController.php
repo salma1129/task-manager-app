@@ -85,4 +85,24 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'No image uploaded'], 400);
     }
+
+    public function profile(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'profileImageUrl' => 'nullable|string',
+        ]);
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($request->password);
+        }
+        $user->update($validated);
+        return response()->json($user);
+    }
 } 
